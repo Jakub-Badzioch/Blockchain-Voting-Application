@@ -1,5 +1,5 @@
 let WALLET_CONNECTED = "";
-let contractAddress = "0x1ccB0A73939F3d224f3a7e5EdB85415dF90b04E8";
+let contractAddress = "0x1d17996c9702D8061c1df664ed5C6d05CBd391A6";
 let contractAbi = [
     {
       "inputs": [
@@ -56,7 +56,7 @@ let contractAbi = [
     },
     {
       "inputs": [],
-      "name": "getAllVotesOfCandiates",
+      "name": "getAllVotesOfCandidates",
       "outputs": [
         {
           "components": [
@@ -223,7 +223,7 @@ const voteStatus = async() => {
         const currentStatus = await contractInstance.getVotingStatus();
         const time = await contractInstance.getRemainingTime();
         console.log(time);
-        status.innerHTML = currentStatus == 1 ? "Voting is currently open" : "Voting is finished";
+        status.innerHTML = currentStatus ? "Voting is currently open" : "Voting is finished";
         remainingTime.innerHTML = `Remaining time is ${parseInt(time, 16)} seconds`;
     }
     else {
@@ -240,7 +240,7 @@ const getAllCandidates = async() => {
         const signer = provider.getSigner();
         const contractInstance = new ethers.Contract(contractAddress, contractAbi, signer);
         p3.innerHTML = "Please wait, getting all the candidates from the voting smart contract";
-        var candidates = await contractInstance.getAllVotesOfCandiates();
+        var candidates = await contractInstance.getAllVotesOfCandidates();
         console.log(candidates);
         var table = document.getElementById("myTable");
 
